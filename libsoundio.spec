@@ -8,7 +8,7 @@ Version:	1.1.0
 Release:	1
 License:	MIT
 Group:		Sound
-Url:		http://libsound.io/
+Url:		https://libsound.io/
 Source0:	https://github.com/andrewrk/libsoundio/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	doxygen
