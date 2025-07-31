@@ -1,15 +1,16 @@
-%define major 1
+%define major 2
 %define libname %mklibname soundio %{major}
 %define devname %mklibname soundio -d
 
 Summary:	C library for cross-platform real-time audio input and output
-Name:		libsoundio
-Version:	1.1.0
+Name:	libsoundio
+Version:	2.0.1
 Release:	1
 License:	MIT
-Group:		Sound
+Group:	Sound
 Url:		https://libsound.io/
-Source0:	https://github.com/andrewrk/libsoundio/archive/%{version}/%{name}-%{version}.tar.gz
+# Fork more active: https://github.com/Kiterai/libsoundio
+Source0:	https://github.com/andrewrk/libsoundio/archive/%{version}/%{name}-%{version}-7.tar.gz
 BuildRequires:	cmake
 BuildRequires:	doxygen
 BuildRequires:	pkgconfig(alsa)
@@ -64,7 +65,8 @@ that use %{name}.
 #-----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1 -n %{name}-%{version}-7
+
 
 %build
 %cmake \
@@ -73,13 +75,15 @@ that use %{name}.
 	-DENABLE_COREAUDIO="OFF" \
 	-DENABLE_WASAPI="OFF" \
 	-DCMAKE_BUILD_TYPE=Release
-%make
+
+%make_build
 
 # Since this is a library, build dev docs
 %make doc
 
+
 %install
-%makeinstall_std -C build
+%make_install -C build
 
 # Install the cmake module for the library
 mkdir -p %{buildroot}/%{_datadir}/cmake/Modules/
